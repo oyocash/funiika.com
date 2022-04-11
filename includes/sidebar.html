@@ -1,0 +1,101 @@
+
+        <!-- start search -->
+          <ul class="bg-white rounded-lg shadow mb-8">
+            <li class="px-6 py-3 border-b border-gray-200">
+              <div class="flex w-full">
+                <div class="flex-1 flex flex-row justify-between items-center">
+                  <div>
+                    <input type="text" x-model="search" @keyup.enter="getRecords()" class="w-full px-1 py-1 text-m border border-gray-30 rounded outline-none" placeholder="Search" />
+                  </div> 
+                  <div>
+                    <button
+                      @click="getRecords()"
+                      class="focus:outline-none py-1 px-4 rounded-full shadow-sm text-center text-blue-600 bg-white hover:bg-blue-100 font-medium border border-blue-200" 
+                    >Search</button>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        <!-- end search -->
+
+        <!-- start filters -->
+          <ul class="bg-white rounded-lg shadow mb-8">
+            <li class="px-6 py-3 border-b border-gray-200">
+              <div class="font-bold text-gray-800">Filters <span class="text-xs text-gray-500 font-medium">(single words)</span></div>
+            </li>
+
+            <li class="px-6 py-3 border-b border-gray-200">
+              <div class="flex w-full">
+                <div class="flex-1 flex flex-row justify-between items-center">
+                  <div>
+                    <input type="text" x-model="newFilter" @keyup.enter="setFilter()" class="w-full px-1 py-1 text-m border border-gray-30 rounded outline-none" placeholder="Add filter" />
+                  </div> 
+                  <div>
+                    <button
+                      @click="setFilter()"
+                      class="focus:outline-none py-1 px-4 rounded-full shadow-sm text-center text-blue-600 bg-white hover:bg-blue-100 font-medium border border-blue-200" 
+                    >Add</button>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <template x-for="(filter, filterIndex) in filters" :key="filterIndex">  
+              <li class="px-6 py-3" :class="{'border-b border-gray-200': (filterIndex + 1) != filters.length }">
+                <div class="flex w-full">
+                  <div class="flex-1 flex flex-row justify-between items-center">
+                    <div>
+                      <p x-text="filter" class="text-gray-700"></p>
+                    </div> 
+                    <div>
+                      <button
+                        @click="removeFilter(filterIndex)"
+                        class="focus:outline-none py-1 px-4 rounded-full shadow-sm text-center text-blue-600 bg-white hover:bg-blue-100 font-medium border border-blue-200" 
+                      >Remove</button>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </template>
+          </ul>
+        <!-- end filters -->
+
+        <!-- start oracles -->
+          <ul class="bg-white rounded-lg shadow mb-8">
+            <li class="px-6 py-3 border-b border-gray-200">
+              <div class="font-bold text-gray-800">Oracles <span class="text-xs text-gray-500 font-medium">(who votes)</span></div>
+            </li>
+            <li class="px-6 py-3 border-b border-gray-200">
+              <div class="flex w-full">
+                <div class="flex-1 flex flex-row justify-between items-center">
+                  <div>
+                    <input type="text" x-model="newOracle" class="w-full px-1 py-1 text-m border border-gray-30 rounded outline-none" placeholder="Add oracle" />
+                  </div> 
+                  <div>
+                    <button
+                      @click="setOracle()"
+                      class="focus:outline-none py-1 px-4 rounded-full shadow-sm text-center text-blue-600 bg-white hover:bg-blue-100 font-medium border border-blue-200" 
+                    >Add</button>
+                  </div>
+                </div>
+              </div>
+            </li>            
+            <template x-for="(oracle, oracleIndex) in oracles" :key="oracleIndex">  
+              <li class="px-6 py-3" :class="{'border-b border-gray-200': (oracleIndex + 1) != oracles.length }">
+                <div class="flex w-full">
+                  <div class="flex-1 flex flex-row justify-between items-center">
+                    <div>
+                      <p x-text="oracle" class="text-xs text-gray-500 break-all"></p>
+                    </div> 
+                    <div>
+                      <button
+                        @click="removeOracle(oracleIndex)"
+                        class="focus:outline-none py-1 px-4 rounded-full shadow-sm text-center text-blue-600 bg-white hover:bg-blue-100 font-medium border border-blue-200" 
+                      >x</button>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </template>
+          </ul>
+        <!-- end oracle -->

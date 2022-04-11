@@ -1,0 +1,77 @@
+          <!-- start list -->
+          <ul class="bg-white rounded-lg shadow mb-8">
+            <li class="px-6 py-3 border-b border-gray-200" x-show="records.length > 0">
+              <div class="font-bold text-gray-800">%title%</div>
+            </li>
+            <template x-for="(record, recordIndex) in records" :key="recordIndex">  
+              <div>
+                <li class="px-6 py-5" :class="{'border-b border-gray-200': (recordIndex + 1) != records.length }">
+                  <div class="flex w-full">
+                    <div class="flex-shrink-0 mr-5">
+                      <div class="cursor-pointer font-bold w-12 h-12 bg-gray-300 flex items-center justify-center rounded-full">
+                        <a x-bind:href="'/profile.html?address='+record.address">
+                          <span x-text="generateAvatarFromName(record.name)" class="uppercase text-gray-700"></span>
+                        </a>
+                      </div>
+                    </div>
+                    <div class="flex-1">
+                      <div class="mb-4">
+                        <a x-bind:href="'/hash.html?hash='+record.hash">
+                          <p x-html="record.record" class="text-gray-700"></p>
+                       </a>
+                      </div>
+                      <div>
+                        <span class="text-gray-600 text-sm" x-text="formatDate(record.date)"></span>
+                      </div>
+
+                      <div class="flex items-center w-full">
+                        <div class="w-1/4 flex items-center">
+                          <div @click="trueRecord(recordIndex)" class="cursor-pointer hover:bg-gray-200 inline-flex p-2 rounded-full duration-200 transition-all ease-in-out">
+                            <svg class="h-6 w-6" :class="{'text-gray-500': record.hasBeenTrue == false, 'text-green-500': record.hasBeenTrue == true }"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <title>True</title>
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>                            
+                          </div>
+                          <div x-text="record.trues" class="ml-1 leading-none inline-flex" :class="{'text-gray-600': record.hasBeenTrue == false, 'text-green-600': record.hasBeenTrue == true}"></div>
+                        </div>
+
+                        <div class="w-1/4 flex items-center">
+                          <div @click="falseRecord(recordIndex)" class="cursor-pointer hover:bg-gray-200 inline-flex p-2 rounded-full duration-200 transition-all ease-in-out">
+                            <svg class="h-6 w-6 text-gray-500" :class="{'text-gray-500': record.hasBeenFalse == false, 'text-red-500': record.hasBeenFalse == true }"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <title>False</title>
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                          </div>
+                          <div x-text="record.falses" class="ml-1 text-gray-600 leading-none inline-flex" :class="{'text-gray-600': record.hasBeenFalse == false, 'text-red-600': record.hasBeenFalse == true}"></div>
+                        </div>
+
+                        <div class="w-1/4 flex items-center">
+                          <div class="cursor-pointer hover:bg-gray-200 inline-flex p-2 rounded-full duration-200 transition-all ease-in-out">
+                          <a x-bind:href="'/hash.html?hash='+record.hash">
+                            <svg class="h-6 w-6 text-gray-500"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <title>Comment</title>
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                            </svg>
+                          </a>                 
+                          </div>
+                        </div>
+
+                        <div class="w-1/4 flex items-center">
+                          <div @click="sendTip(recordIndex)" class="cursor-pointer hover:bg-gray-200 inline-flex p-2 rounded-full duration-200 transition-all ease-in-out">
+                            <svg class="h-6 w-6 text-gray-500"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <title>Tip</title>
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                          </div>
+                            <input type="text" x-model="tipAmount" value="100" class="w-10 px-1 py-1 text-xs border border-gray-20 rounded outline-none" placeholder="100" />
+                          <div class="text-xs ml-1 text-gray-600 leading-none inline-flex"> bits</div>
+                        </div>  
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </div>
+            </template>
+          </ul>
+          <!-- end list -->
+          
