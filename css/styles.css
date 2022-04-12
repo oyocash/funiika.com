@@ -115,16 +115,16 @@
 		grid-column-end: span 1
 	}
 }
-
-@media(max-width:768px) {
+/*
+@media(max-width:1280px) {
 	.gg-box {
 		grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 		grid-auto-rows: calc(var(--row-height) - 15vh);
 		margin: 10px 0
 	}
 }
-
-@media(max-width:450px) {
+*/
+@media(max-width:1280px) {
 	.gg-box {
 		grid-template-columns: repeat(auto-fit, minmax(130px, 1fr))
 	}
