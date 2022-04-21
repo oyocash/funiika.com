@@ -538,11 +538,13 @@ function app() {
         this.setEvalLocalStorage(this.selectedRecord.hash, "1")
         this.selectedRecord.hasBeenTrue ? this.selectedRecord.trues-- : this.selectedRecord.trues++;
         this.selectedRecord.hasBeenTrue = !this.selectedRecord.hasBeenTrue;
+        this.selectedRecord.hasBeenFalse = false
       } else {
         this.saveEval(this.records[index].hash, "1")
         this.setEvalLocalStorage(this.records[index].hash, "1")
         this.records[index].hasBeenTrue ? this.records[index].trues-- : this.records[index].trues++;
         this.records[index].hasBeenTrue = !this.records[index].hasBeenTrue;
+        this.records[index].hasBeenFalse = false
       }
     },
 
@@ -556,11 +558,13 @@ function app() {
         this.setEvalLocalStorage(this.selectedRecord.hash, "0")
         this.selectedRecord.hasBeenFalse ? this.selectedRecord.falses-- : this.selectedRecord.falses++;
         this.selectedRecord.hasBeenFalse = !this.selectedRecord.hasBeenFalse;
+        this.selectedRecord.hasBeenTrue = false
       } else {
         this.saveEval(this.records[index].hash, "0")
         this.setEvalLocalStorage(this.records[index].hash, "0")
         this.records[index].hasBeenFalse ? this.records[index].falses-- : this.records[index].falses++;
         this.records[index].hasBeenFalse = !this.records[index].hasBeenFalse;
+        this.records[index].hasBeenTrue = false
       }
     },
 
@@ -726,6 +730,12 @@ async function requestUTXO() {
   let utxoUrl = 'https://api.whatsonchain.com/v1/bsv/main/address/' + userData.address + '/unspent';
   let response = await fetch(utxoUrl)
   let data = await response.json()
+
+  // wallet is empty
+  if (data === undefined || data.length == 0) {
+    return {}
+  }
+
   let unspentTX = data[0]
   let txUrl = `https://api.whatsonchain.com/v1/bsv/main/tx/hash/${unspentTX.tx_hash}`;
   let response2 = await fetch(txUrl)
@@ -865,7 +875,7 @@ async function loadFooter() {
 }
 // END loader
 
-// data
+// login
 function getUserData() {
   let address = localStorage.getItem("user.address")
   let pk = localStorage.getItem("user.pk")
