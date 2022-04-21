@@ -538,13 +538,19 @@ function app() {
         this.setEvalLocalStorage(this.selectedRecord.hash, "1")
         this.selectedRecord.hasBeenTrue ? this.selectedRecord.trues-- : this.selectedRecord.trues++;
         this.selectedRecord.hasBeenTrue = !this.selectedRecord.hasBeenTrue;
-        this.selectedRecord.hasBeenFalse = false
+        if (this.selectedRecord.hasBeenFalse === true) {
+          this.selectedRecord.falses--
+          this.selectedRecord.hasBeenFalse = false
+        }
       } else {
         this.saveEval(this.records[index].hash, "1")
         this.setEvalLocalStorage(this.records[index].hash, "1")
         this.records[index].hasBeenTrue ? this.records[index].trues-- : this.records[index].trues++;
         this.records[index].hasBeenTrue = !this.records[index].hasBeenTrue;
-        this.records[index].hasBeenFalse = false
+        if (this.records[index].hasBeenFalse === true) {
+          this.records[index].falses--
+          this.records[index].hasBeenFalse = false
+        }
       }
     },
 
@@ -558,13 +564,19 @@ function app() {
         this.setEvalLocalStorage(this.selectedRecord.hash, "0")
         this.selectedRecord.hasBeenFalse ? this.selectedRecord.falses-- : this.selectedRecord.falses++;
         this.selectedRecord.hasBeenFalse = !this.selectedRecord.hasBeenFalse;
-        this.selectedRecord.hasBeenTrue = false
+        if (this.selectedRecord.hasBeenTrue === true) {
+          this.selectedRecord.trues--
+          this.selectedRecord.hasBeenTrue = false
+        }
       } else {
         this.saveEval(this.records[index].hash, "0")
         this.setEvalLocalStorage(this.records[index].hash, "0")
         this.records[index].hasBeenFalse ? this.records[index].falses-- : this.records[index].falses++;
         this.records[index].hasBeenFalse = !this.records[index].hasBeenFalse;
-        this.records[index].hasBeenTrue = false
+        if (this.records[index].hasBeenTrue === true) {
+          this.records[index].trues--
+          this.records[index].hasBeenTrue = false
+        }
       }
     },
 
